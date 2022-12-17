@@ -1,5 +1,6 @@
 import 'package:bloc_project_1/blocs/internet_bloc/internet_bloc.dart';
 import 'package:bloc_project_1/blocs/internet_bloc/internet_state.dart';
+import 'package:bloc_project_1/cubit/interent_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,9 +12,9 @@ class Home extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
           child: Center(
-        child: BlocConsumer<InternetBloc, InterentState>(
+        child: BlocConsumer<InternetCubit, InternetState>(
           listener: (context, state) {
-            if (state is InternetGainedState) {
+            if (state == InternetState.gain) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text("Internet Connected"),
@@ -32,9 +33,9 @@ class Home extends StatelessWidget {
             }
           },
           builder: (context, state) {
-            if (state is InternetGainedState) {
+            if (state == InternetState.gain) {
               return Text("Connected");
-            } else if (state is InternetLostState) {
+            } else if (state == InternetState.lost) {
               // print(state);
               return Text("No Intenet connections...");
             } else {
